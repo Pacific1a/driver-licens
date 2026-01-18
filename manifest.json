@@ -1,0 +1,25 @@
+{
+    "name": "Дмитрий МРЭО - Консалтинг водительских документов",
+    "short_name": "Дмитрий МРЭО",
+    "description": "Консалтинговое сопровождение оформления водительских документов. Официально, в рамках законодательства.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0f0f1a",
+    "theme_color": "#6366f1",
+    "orientation": "portrait",
+    "lang": "ru",
+    "icons": [
+        {
+            "src": "assets/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "assets/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}

@@ -1,0 +1,305 @@
+ * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+           overflow: auto;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(180deg, #1a1a2e 0%, #0f0f1a 100%);
+            font-family: 'Poppins', sans-serif;
+            padding: 20px;
+        }
+        .scrollable::-webkit-scrollbar {
+  width: 0; /* убирает вертикальный скроллбар */
+  height: 0; /* убирает горизонтальный скроллбар */
+}
+
+        /* Card Animation */
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 20px;
+            max-width: 420px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            opacity: 0;
+            animation: cardFadeIn 0.6s ease-out 0.1s forwards;
+        }
+
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        /* Avatar Animation */
+        .avatar {
+            width: 130px;
+            border-radius: 100%;
+            opacity: 0;
+            animation: avatarPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
+        }
+
+        @keyframes avatarPop {
+            from { opacity: 0; transform: scale(0.5) rotate(-10deg); }
+            to { opacity: 1; transform: scale(1) rotate(0deg); }
+        }
+
+        /* Title Animation */
+        .title {
+            color: #fff;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-align: center;
+            opacity: 0;
+            animation: titleSlide 0.5s ease-out 0.5s forwards;
+        }
+
+        @keyframes titleSlide {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .title span {
+            background: linear-gradient(135deg, #6366f1, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Description Animation */
+        .desc {
+            text-align: center;
+            color: #888;
+            font-size: 16px;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out 0.6s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        /* Grid Items Animation - разлетаются из центра */
+        .grid-item {
+            background: rgba(99, 102, 241, 0.08);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+            opacity: 0;
+        }
+
+        .grid-item:nth-child(1) {
+            animation: flyFromCenter 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.7s forwards;
+            --tx: -20px;
+            --ty: -20px;
+        }
+
+        .grid-item:nth-child(2) {
+            animation: flyFromCenter 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.8s forwards;
+            --tx: 20px;
+            --ty: -20px;
+        }
+
+        .grid-item:nth-child(3) {
+            animation: flyFromCenter 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.9s forwards;
+            --tx: -20px;
+            --ty: 20px;
+        }
+
+        .grid-item:nth-child(4) {
+            animation: flyFromCenter 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 1s forwards;
+            --tx: 20px;
+            --ty: 20px;
+        }
+
+        @keyframes flyFromCenter {
+            0% { 
+                opacity: 0; 
+                transform: translate(calc(var(--tx) * -3), calc(var(--ty) * -3)) scale(0.3) rotate(10deg);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translate(0, 0) scale(1) rotate(0deg);
+            }
+        }
+
+        .grid-item:hover {
+            background: rgba(99, 102, 241, 0.15);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+        }
+
+        .grid-icon {
+            color: #8a8cff;
+            font-size: 35px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+
+        .grid-item:hover .grid-icon {
+            transform: scale(1.2);
+            color: #a5b4fc;
+        }
+
+        .grid-title {
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .grid-sub {
+            color: #6366f1;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        /* Benefits Animation - slide in from left */
+        .benefits {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            opacity: 0;
+            animation: slideInLeft 0.5s ease-out 1.1s forwards;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .benefit {
+            display: flex;
+            align-items: center;
+            color: #ccc;
+            font-size: 13px;
+            padding: 8px 0;
+            opacity: 0;
+            animation: benefitFade 0.4s ease-out forwards;
+        }
+
+        .benefit:nth-child(1) { animation-delay: 1.2s; }
+        .benefit:nth-child(2) { animation-delay: 1.3s; }
+        .benefit:nth-child(3) { animation-delay: 1.4s; }
+        .benefit:nth-child(4) { animation-delay: 1.5s; }
+
+        @keyframes benefitFade {
+            from { opacity: 0; transform: translateX(-15px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .benefit::before {
+            content: '✓';
+            color: #6366f1;
+            font-weight: bold;
+            margin-right: 12px;
+            display: inline-block;
+            animation: checkBounce 0.3s ease-out forwards;
+        }
+
+        @keyframes checkBounce {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        /* CTA Animation */
+        .cta-wrap {
+            display: flex;
+            gap: 12px;
+            opacity: 0;
+            animation: ctaSlideUp 0.5s ease-out 1.6s forwards;
+        }
+
+        @keyframes ctaSlideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .cta-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: #fff;
+            text-decoration: none;
+            padding: 16px;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-main:hover::before {
+            left: 100%;
+        }
+
+        .cta-main:hover {
+            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .cta-icon {
+            width: 54px;
+            height: 54px;
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #8a8cff;
+        }
+
+        .center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        /* Image under avatar animation */
+        .center img:not(.avatar) {
+            opacity: 0;
+            animation: fadeIn 0.4s ease-out 0.4s forwards;
+        }
