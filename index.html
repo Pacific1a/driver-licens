@@ -156,7 +156,7 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-radius: 30px;
-            padding: 20px;
+            padding: 15px;
             max-width: 420px;
             width: 100%;
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -219,14 +219,14 @@
         .grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            gap: 10px;
             margin-bottom: 20px;
         }
         .grid-item {
             background: rgba(99, 102, 241, 0.08);
             border: 1px solid rgba(99, 102, 241, 0.2);
             border-radius: 16px;
-            padding: 20px;
+            padding: 5px;
             text-align: center;
             transition: all 0.3s ease;
             opacity: 0;
@@ -302,10 +302,11 @@
         .benefits {
             background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
             border-radius: 16px;
-            padding: 20px;
+            padding: 5px 20px;
             margin-bottom: 25px;
             opacity: 0;
-            animation: slideInLeft 0.5s ease-out 1.1s forwards;
+            animation: slideInLeft 0.5s 
+            ease-out 1.1s forwards;
         }
 
         @keyframes slideInLeft {
@@ -318,7 +319,7 @@
             align-items: center;
             color: #ccc;
             font-size: 13px;
-            padding: 8px 0;
+            padding: 2px 0px;
             opacity: 0;
             animation: benefitFade 0.4s ease-out forwards;
         }
