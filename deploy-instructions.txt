@@ -1,0 +1,173 @@
+=== ИНСТРУКЦИЯ ПО РАЗВЕРТЫВАНИЮ САЙТА driverlicens.online ===
+
+IP сервера: 144.31.167.249
+Пароль: UlTef9id3AJZPrTe
+
+=== ШАГ 1: Подключение к серверу ===
+
+Используй PuTTY или PowerShell:
+1. Открой PowerShell
+2. Выполни: ssh root@144.31.167.249
+3. Введи пароль: UlTef9id3AJZPrTe
+
+=== ШАГ 2: Установка веб-сервера (nginx) ===
+
+После подключения выполни команды:
+
+# Обновляем систему
+apt update && apt upgrade -y
+
+# Устанавливаем nginx
+apt install nginx -y
+
+# Запускаем nginx
+systemctl start nginx
+systemctl enable nginx
+
+# Проверяем статус
+systemctl status nginx
+
+=== ШАГ 3: Настройка сайта ===
+
+# Создаем директорию для сайта
+mkdir -p /var/www/driverlicens.online
+
+# Создаем конфигурационный файл
+nano /etc/nginx/sites-available/driverlicens.online
+
+Вставь этот конфиг:
+---
+server {
+    listen 80;
+    listen [::]:80;
+    
+    server_name driverlicens.online www.driverlicens.online;
+    
+    root /var/www/driverlicens.online;
+    index index.html;
+    
+    location / {
+        try_files $uri $uri/ =404;
+    }
+    
+    # Кеширование статических файлов
+    location ~* \.(jpg|jpeg|png|gif|ico|css|js|svg|webp)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+    
+    # Сжатие
+    gzip on;
+    gzip_vary on;
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+}
+---
+
+# Сохрани (Ctrl+X, Y, Enter)
+
+# Активируем конфиг
+ln -s /etc/nginx/sites-available/driverlicens.online /etc/nginx/sites-enabled/
+
+# Проверяем конфиг
+nginx -t
+
+# Перезагружаем nginx
+systemctl reload nginx
+
+=== ШАГ 4: Загрузка файлов на сервер ===
+
+Вариант А - Через WinSCP:
+1. Скачай WinSCP (https://winscp.net)
+2. Подключись к серверу
+3. Перейди в папку /var/www/driverlicens.online
+4. Загрузи все файлы из папки проекта:
+   - index.html
+   - robots.txt
+   - sitemap.xml
+   - manifest.json
+   - папку assets (с файлом avatar.jpg)
+   - папку css
+
+Вариант Б - Через SCP из PowerShell:
+scp -r * root@144.31.167.249:/var/www/driverlicens.online/
+
+# Установи правильные права
+chmod -R 755 /var/www/driverlicens.online
+chown -R www-data:www-data /var/www/driverlicens.online
+
+=== ШАГ 5: Настройка DNS в Namecheap ===
+
+1. Зайди на https://www.namecheap.com
+2. Мой аккаунт → Domain List → driverlicens.online → Manage
+3. Advanced DNS
+4. Удали существующие записи (CNAME www, URL Redirect)
+5. Добавь новые A Records:
+   
+   Type: A Record
+   Host: @
+   Value: 144.31.167.249
+   TTL: Automatic
+   
+   Type: A Record
+   Host: www
+   Value: 144.31.167.249
+   TTL: Automatic
+
+6. Сохрани изменения
+
+DNS обновление может занять от 5 минут до 24 часов
+
+=== ШАГ 6: Установка SSL сертификата (Let's Encrypt) ===
+
+# Устанавливаем certbot
+apt install certbot python3-certbot-nginx -y
+
+# Получаем сертификат
+certbot --nginx -d driverlicens.online -d www.driverlicens.online
+
+# Следуй инструкциям:
+# - Введи email для уведомлений
+# - Согласись с Terms of Service (Y)
+# - Выбери редирект с HTTP на HTTPS (2)
+
+# Автопродление
+certbot renew --dry-run
+
+=== ШАГ 7: Проверка работы ===
+
+1. Открой браузер
+2. Перейди на http://driverlicens.online
+3. Проверь что сайт открывается
+4. Проверь https://www.driverlicens.online
+
+=== SEO ОПТИМИЗАЦИЯ (уже сделано в коде) ===
+
+✓ Обновлены все мета-теги
+✓ Canonical URL на новый домен
+✓ Sitemap.xml обновлен
+✓ Robots.txt обновлен
+✓ Schema.org разметка
+✓ Open Graph для соцсетей
+
+=== Дополнительно для SEO ===
+
+1. Зарегистрируй сайт в Google Search Console (https://search.google.com/search-console)
+2. Зарегистрируй в Яндекс.Вебмастер (https://webmaster.yandex.ru)
+3. Добавь sitemap.xml в обоих сервисах
+4. Установи Google Analytics (если нужно)
+5. Настрой Meta Pixel (уже установлен в коде)
+
+=== ПОЛЕЗНЫЕ КОМАНДЫ ===
+
+# Проверить логи nginx
+tail -f /var/log/nginx/access.log
+tail -f /var/log/nginx/error.log
+
+# Перезапуск nginx
+systemctl restart nginx
+
+# Проверка статуса
+systemctl status nginx
+
+# Проверка конфига
+nginx -t

@@ -20,7 +20,6 @@
     <!-- End Meta Pixel Code -->
     <meta name="google-site-verification" content="9b7c3mFHLpSN8jZdJ5rOE2w8IlgCDR-prklS1ddXBeE" />
     <meta name="google-site-verification" content="QMWBtUEHGCIoauvxyuNNT0dTxp4w2Y5Wi5QHszL6zTw">
-    <meta name="google-site-verification" content="IYcfh4c6QwI0A9pUe309sCnhENQ1332yZqKGG4aOmwA">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Дмитрий МРЭО | Консалтинг оформления водительских документов</title>
@@ -126,7 +125,7 @@
         html {
             scroll-behavior: smooth;
         }
-        
+
         body {
             min-height: 100vh;
             display: flex;
@@ -138,7 +137,20 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #6366f1;
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
 
+        .skip-link:focus {
+            top: 0;
+        }
         .card {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(10px);
@@ -424,6 +436,8 @@
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Перейти к основному содержимому</a>
+
     <main id="main-content" role="main">
         <article class="card" itemscope itemtype="https://schema.org/Service">
             <div class="center">

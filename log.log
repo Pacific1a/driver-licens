@@ -1,0 +1,148 @@
+root@driverlicens:/etc/nginx/sites-available# sudo ln -sf /etc/nginx/sites-available/driverlicen
+s_http.conf  /etc/nginx/sites-enabled/driverlicens_http.conf
+sudo ln -sf /etc/nginx/sites-available/driverliroot@driverlicens:/etc/nginx/sites-available# dri
+riverlicens_https.confetc/nginx/sites-enabled/d
+-enabled/defaultdriverlicens_https.conf: command not found
+root@driverlicens:/etc/nginx/sites-available# sudo rm -f /etc/nginx/sites-enabled/default
+root@driverlicens:/etc/nginx/sites-available# sudo nginx -t
+sudo systemctl reload nginx2026/02/08 14:00:18 [warn] 647802#647802: protocol options redefined
+for [::]:443 in /etc/nginx/sites-enabled/driverlicens_https.conf:3
+2026/02/08 14:00:18 [warn] 647802#647802: conflicting server name "driverlicens.online" on [::]:
+443, ignored
+2026/02/08 14:00:18 [warn] 647802#647802: conflicting server name "www.driverlicens.online" on [
+::]:443, ignored
+2026/02/08 14:00:18 [warn] 647802#647802: conflicting server name "driverlicens.online" on 0.0.0
+.0:443, ignored
+2026/02/08 14:00:18 [warn] 647802#647802: conflicting server name "www.driverlicens.online" on 0
+.0.0.0:443, ignored
+2026/02/08 14:00:18 [warn] 647802#647802: conflicting server name "driverlicens.online" on 0.0.0
+.0:80, ignored
+2026/02/08 14:00:18 [warn] 647802#647802: conflicting server name "www.driverlicens.online" on 0
+.0.0.0:80, ignored
+2026/02/08 14:00:18 [warn] 647802#647802: conflicting server name "driverlicens.online" on [::]:
+80, ignored
+2026/02/08 14:00:18 [warn] 647802#647802: conflicting server name "www.driverlicens.online" on [
+::]:80, ignored
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+root@driverlicens:/etc/nginx/sites-available#
+root@driverlicens:/etc/nginx/sites-available# sudo certbot --nginx -d driverlicens.online -d www
+.driverlicens.online
+sudo systemctl reload nginx
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+Certificate not yet due for renewal
+
+You have an existing certificate that has exactly the same domains or certificate name you reque
+sted and isn't close to expiry.
+(ref: /etc/letsencrypt/renewal/driverlicens.online.conf)
+
+What would you like to do?
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+1: Attempt to reinstall this existing certificate
+2: Renew & replace the certificate (may be subject to CA rate limits)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Select the appropriate number [1-2] then [enter] (press 'c' to cancel):
+** Invalid input **
+Select the appropriate number [1-2] then [enter] (press 'c' to cancel): echo "<h1>OK</h1>" | sud
+o tee /var/www/driverlicens.online/index.html
+sudo systemctl reload nginx
+** Invalid input **
+Select the appropriate number [1-2] then [enter] (press 'c' to cancel):
+
+** Invalid input **
+Select the appropriate number [1-2] then [enter] (press 'c' to cancel): ^CExiting due to user re
+quest.
+root@driverlicens:/etc/nginx/sites-available# echo "<h1>OK</h1>" | sudo tee /var/www/driverlicen
+s.online/index.html
+<h1>OK</h1>
+root@driverlicens:/etc/nginx/sites-available# sudo systemctl reload nginx
+root@driverlicens:/etc/nginx/sites-available# echo "<h1>OK</h1>" | sudo tee /var/www/driverlicen
+s.online/index.html
+<h1>OK</h1>
+root@driverlicens:/etc/nginx/sites-available# sudo systemctl reload nginx
+root@driverlicens:/etc/nginx/sites-available# sudo grep -R "driverlicens.online" /etc/nginx/site
+s-available /etc/nginx/conf.d -^C
+root@driverlicens:/etc/nginx/sites-available# sudo grep -R "driverlicens.online" /etc/nginx/site
+s-available /etc/nginx/conf.d -n
+/etc/nginx/sites-available/driverlicens.online:3:    server_name driverlicens.online www.driverl
+icens.online;
+/etc/nginx/sites-available/driverlicens.online:5:    root /var/www/driverlicens.online;
+/etc/nginx/sites-available/driverlicens.online:25:    ssl_certificate /etc/letsencrypt/live/driv
+erlicens.online/fullchain.pem; # managed by Certbot
+/etc/nginx/sites-available/driverlicens.online:26:    ssl_certificate_key /etc/letsencrypt/live/
+driverlicens.online/privkey.pem; # managed by Certbot
+/etc/nginx/sites-available/driverlicens.online:33:    if ($host = www.driverlicens.online) {
+/etc/nginx/sites-available/driverlicens.online:38:    if ($host = driverlicens.online) {
+/etc/nginx/sites-available/driverlicens.online:46:    server_name driverlicens.online www.driver
+licens.online;
+/etc/nginx/sites-available/driverlicens_http.conf:4:    server_name driverlicens.online www.driv
+erlicens.online;
+/etc/nginx/sites-available/driverlicens_https.conf:4:    server_name driverlicens.online www.dri
+verlicens.online;
+/etc/nginx/sites-available/driverlicens_https.conf:6:    root /var/www/driverlicens.online;
+/etc/nginx/sites-available/driverlicens_https.conf:9:    ssl_certificate     /etc/letsencrypt/li
+ve/driverlicens.online/fullchain.pem;
+/etc/nginx/sites-available/driverlicens_https.conf:10:    ssl_certificate_key /etc/letsencrypt/l
+ive/driverlicens.online/privkey.pem;
+root@driverlicens:/etc/nginx/sites-available# sudo grep -R "driverlicens.online" /etc/nginx/site
+s-available /etc/nginx/conf.d -n
+/etc/nginx/sites-available/driverlicens.online:3:    server_name driverlicens.online www.driverl
+icens.online;
+/etc/nginx/sites-available/driverlicens.online:5:    root /var/www/driverlicens.online;
+/etc/nginx/sites-available/driverlicens.online:25:    ssl_certificate /etc/letsencrypt/live/driv
+erlicens.online/fullchain.pem; # managed by Certbot
+/etc/nginx/sites-available/driverlicens.online:26:    ssl_certificate_key /etc/letsencrypt/live/
+driverlicens.online/privkey.pem; # managed by Certbot
+/etc/nginx/sites-available/driverlicens.online:33:    if ($host = www.driverlicens.online) {
+/etc/nginx/sites-available/driverlicens.online:38:    if ($host = driverlicens.online) {
+/etc/nginx/sites-available/driverlicens.online:46:    server_name driverlicens.online www.driver
+licens.online;
+/etc/nginx/sites-available/driverlicens_http.conf:4:    server_name driverlicens.online www.driv
+erlicens.online;
+/etc/nginx/sites-available/driverlicens_https.conf:4:    server_name driverlicens.online www.dri
+verlicens.online;
+/etc/nginx/sites-available/driverlicens_https.conf:6:    root /var/www/driverlicens.online;
+/etc/nginx/sites-available/driverlicens_https.conf:9:    ssl_certificate     /etc/letsencrypt/li
+ve/driverlicens.online/fullchain.pem;
+/etc/nginx/sites-available/driverlicens_https.conf:10:    ssl_certificate_key /etc/letsencrypt/l
+ive/driverlicens.online/privkey.pem;
+root@driverlicens:/etc/nginx/sites-available# sudo rm -f /etc/nginx/sites-enabled/driverlicens.o
+nline
+root@driverlicens:/etc/nginx/sites-available# sudo ln -sf /etc/nginx/sites-available/driverlicen
+s_http.conf  /etc/nginx/sites-enabled/driverlicens_http.conf
+sudo ln -sf /etc/nginx/sites-available/driverliroot@driverlicens:/etc/nginx/sites-available# dri
+riverlicens_https.confetc/nginx/sites-enabled/d
+driverlicens_https.conf: command not found
+root@driverlicens:/etc/nginx/sites-available# sudo nginx -t
+sudo systemctl reload nginxnginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+root@driverlicens:/etc/nginx/sites-available#
+root@driverlicens:/etc/nginx/sites-available# sudo certbot install --cert-name driverlicens.onli
+ne
+sudo systemctl reload nginxSaving debug log to /var/log/letsencrypt/letsencrypt.log
+Deploying certificate
+Successfully deployed certificate for driverlicens.online to /etc/nginx/sites-enabled/driverlice
+ns_https.conf
+Successfully deployed certificate for www.driverlicens.online to /etc/nginx/sites-enabled/driver
+licens_https.conf
+
+root@driverlicens:/etc/nginx/sites-available# curl -I http://driverlicens.online
+//drivHTTP/1.1 301 Moved Permanently
+Server: nginx/1.24.0 (Ubuntu)
+Date: Sun, 08 Feb 2026 14:01:56 GMT
+Content-Type: text/html
+Content-Length: 178
+Connection: keep-alive
+Location: https://driverlicens.online/
+
+root@driverlicens:/etc/nginx/sites-available# curl -Ik https://driverlicens.online
+HTTP/2 200
+server: nginx/1.24.0 (Ubuntu)
+date: Sun, 08 Feb 2026 14:01:56 GMT
+content-type: text/html
+content-length: 12
+last-modified: Sun, 08 Feb 2026 14:00:37 GMT
+etag: "69889705-c"
+accept-ranges: bytes
+
+root@driverlicens:/etc/nginx/sites-available#
